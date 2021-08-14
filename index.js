@@ -13,4 +13,4 @@ async function start() {
     routesConfig(app);
 }
 
-app.listen(PORT, () => console.log(`Server listening on http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Server listening on http://localhost:${PORT}/`));
