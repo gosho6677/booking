@@ -5,11 +5,11 @@ const bcrypt = require('bcrypt');
 
 module.exports = () => (req, res, next) => {
     req.auth = {
-        register: async (email, username, password) => {
+        register: async ({ email, username, password }) => {
             const token = await registerToken(email, username, password);
             res.cookie(COOKIE_NAME, token, { httpOnly: true });
         },
-        login: async (username, password) => {
+        login: async ({ username, password }) => {
             const token = await loginToken(username, password);
             res.cookie(COOKIE_NAME, token, { httpOnly: true });
         },
@@ -24,7 +24,7 @@ module.exports = () => (req, res, next) => {
 };
 
 async function registerToken(email, username, password) {
-    const hashedPassword = bcrypt.hash(password, 8);
+    const hashedPassword = await bcrypt.hash(password, 8);
     const user = await authServices.createUser(email, username, hashedPassword);
     return createToken(user);
 }
