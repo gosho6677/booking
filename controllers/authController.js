@@ -2,7 +2,6 @@ const router = require('express').Router();
 const { body, validationResult } = require('express-validator');
 const authServices = require('../services/authServices.js');
 
-
 router.get('/login', (req, res) => {
     res.render('login');
 });

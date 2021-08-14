@@ -1,4 +1,4 @@
-const { COOKIE_NAME, TOKEN_SECRET } = require("../config/index.js");
+const { COOKIE_NAME, TOKEN_SECRET } = require("../config/config.js");
 const authServices = require('../services/authServices.js');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
