@@ -1,3 +1,5 @@
+const { isAuthorized } = require('../middlewares.js/guards.js');
+
 const router = require('express').Router();
 
 router.get('/', async (req, res) => {
@@ -5,7 +7,7 @@ router.get('/', async (req, res) => {
     res.render('home', { hotels });
 });
 
-router.get('/profile', async (req, res) => {
+router.get('/profile', isAuthorized(), async (req, res) => {
     const bookedHotels = await req.auth.getUserBookedHotels(req.user.username);
     res.render('profile', { bookedHotels });
 });
