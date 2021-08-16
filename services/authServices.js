@@ -9,7 +9,7 @@ async function createUser(email, username, password) {
 
 async function getUserByUsername(username) {
     let re = new RegExp(`^${username}$`, 'i');
-    return await User.findOne({ username: { $regex: re } });
+    return await User.findOne({ username: { $regex: re } }).populate('bookedHotels');
 }
 
 async function getUserByEmail(email) {

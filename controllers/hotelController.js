@@ -71,7 +71,6 @@ router.post('/edit/:id',
             imageUrl: req.body.imageUrl,
             freeRooms: req.body.freeRooms,
         };
-        console.log(hotel);
         try {
             if (errors.length) {
                 throw new Error(errors.map(e => e.msg).join('\n'));

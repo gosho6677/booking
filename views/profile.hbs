@@ -1,0 +1,23 @@
+<section id="viewhotelDetails">
+    <div class="profile"><img src="../static/img/profile.png" alt="default user">
+        <h3>User Info:</h3>
+        <div class="flex">
+            <p>Username: </p>
+            <p>Johny</p>
+        </div>
+        <div class="flex">
+            <p>Email: </p>
+            <p>john.doe@gmail.com</p>
+        </div>
+        {{#if bookedHotels}}
+        <div class="flex">
+            <p>Reservations: </p>
+            <p>
+                {{#each bookedHotels}}
+                <span>{{this}}, </span>
+                {{/each}}
+            </p>
+        </div>
+        {{/if}}
+    </div>
+</section>

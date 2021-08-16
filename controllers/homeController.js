@@ -5,4 +5,9 @@ router.get('/', async (req, res) => {
     res.render('home', { hotels });
 });
 
+router.get('/profile', async (req, res) => {
+    const bookedHotels = await req.auth.getUserBookedHotels(req.user.username);
+    res.render('profile', { bookedHotels });
+});
+
 module.exports = router;

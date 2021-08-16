@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 
 module.exports = () => (req, res, next) => {
     req.auth = {
+        getUserBookedHotels,
         register: async ({ email, username, password }) => {
             const token = await registerToken(email, username, password);
             res.cookie(COOKIE_NAME, token, { httpOnly: true });
@@ -22,6 +23,11 @@ module.exports = () => (req, res, next) => {
         next();
     }
 };
+
+async function getUserBookedHotels(username) {
+    const user = await authServices.getUserByUsername(username);
+    return user.bookedHotels.map(h => h.name);
+}
 
 async function registerToken(email, username, password) {
     const hashedPassword = await bcrypt.hash(password, 8);
