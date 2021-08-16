@@ -1,12 +1,14 @@
 const router = require('express').Router();
 const { body, validationResult } = require('express-validator');
+const { isGuest, isAuthorized } = require('../middlewares.js/guards.js');
 const authServices = require('../services/authServices.js');
 
-router.get('/login', (req, res) => {
+router.get('/login', isGuest(), (req, res) => {
     res.render('login');
 });
 
 router.post('/login',
+    isGuest(),
     body('username').custom(async val => {
         const username = await authServices.getUserByUsername(val);
         
@@ -37,11 +39,12 @@ router.post('/login',
         }
     });
 
-router.get('/register', (req, res) => {
+router.get('/register', isGuest(), (req, res) => {
     res.render('register');
 });
 
 router.post('/register',
+    isGuest(),
     body('username').custom(async val => {
         let username = await authServices.getUserByUsername(val);
         if (username) {
@@ -65,7 +68,6 @@ router.post('/register',
     }),
     async (req, res) => {
         let { errors } = validationResult(req);
-
         try {
             if (errors.length) {
                 throw new Error(errors.map(e => e.msg).join('\n'));
@@ -85,7 +87,7 @@ router.post('/register',
         }
     });
 
-router.get('/logout', (req, res) => {
+router.get('/logout', isAuthorized(), (req, res) => {
     req.auth.logout();
     res.redirect('/');
 });

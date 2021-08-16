@@ -5,6 +5,13 @@ async function getAllHotels() {
     return hotels;
 }
 
+async function createHotel(body) {
+    const hotel = await new Hotel(body);
+    await hotel.save();
+    return hotel;
+}
+
 module.exports = {
     getAllHotels,
+    createHotel,
 };
